@@ -32,6 +32,7 @@
 3. Next, the content of the "da" directory was checked.
 
 ![Screenshot directory was checked](img/01.jpeg)
+
 *Image: Checking the contents of the "da" directory on the local computer.*
 
 4. Using an SSH connection, a login to the server was performed. After successfully logging in, the "demo_ed25519.pub" file was copied to the server using ssh-copy-id:
@@ -45,7 +46,9 @@
     ```bash
     sudo nano /etc/ssh/sshd_config
     ```
+
     ![Screenshot ssh configuration](img/02.jpeg)
+
     *Image: Editing the SSH configuration file to disable PasswordAuthentication.*
 
     - The `PasswordAuthentication` option was changed from "yes" to "no" and the SSH service was restarted with:
@@ -54,6 +57,7 @@
     ```
 
     ![Screenshot service restart](img/03.jpeg)
+
     *Image: Restarting the SSH service after making configuration changes.*
 
 6. After logging out, an attempt was made to log in to the server using a password, which failed as expected. Now, only key-based login is possible. This was confirmed with the following command:
@@ -61,7 +65,9 @@
     ssh -o PubkeyAuthentication=no mnaranjoeipperle@88.198.242.174
     ```
     - Everything appears to be functioning as desired.
+
     ![Screenshot Permission denied](img/publickey.jpeg)
+
     *Image: Permission denied error encountered while attempting to access a restricted file.*
 
 7. Next, Nginx was installed:
@@ -74,11 +80,15 @@
     ```bash
     systemctl status nginx.service
     ```
+
     ![Screenshot status check](img/04.jpeg)
+
     *Image: Checking status after installing and configuring Nginx.*
 
 9. To access the web server, the IP address of the server can be entered in a browser.
+    
     ![Screenshot web server view](img/05.jpeg)
+
     *Image: Accessing the web server by entering the server's IP address into a web browser.*
 
 10. To replace the "Welcome to nginx" page with a custom page, a new directory was created:
@@ -93,12 +103,17 @@
     ```bash
     sudo nano /etc/nginx/sites-enabled/alternatives
     ```
+
     ![Screenshot edit content](img/06.jpeg)
+
     *Image: Editing the configuration file for the alternative website in Nginx.*
+    
     ```bash
     sudo nano /var/www/alternatives/alternate-index.html
     ```
+
     ![Screenshot alternative content](img/07.jpeg)
+
     *Image: Content of the alternative index page in Nginx after editing.*
 
 11. To redirect traffic from port 80 to 8081, the following steps were performed:
@@ -130,9 +145,6 @@
     }
     ```
 
-    ![Screenshot new nginx.conf](img/ngd.jpeg)
-    *Image: Editing the NGINX configuration file to add server redirection.*
-
     - Save the changes in nano by pressing `CTRL + O`, then `ENTER`, and exit the editor with `CTRL + X`.
 
     - Test the NGINX configuration and restart the service:
@@ -142,11 +154,14 @@
     ```
 
     ![Screenshot testergebnis](img/test.jpeg)
+
     *Image: Result of testing the NGINX configuration for syntax errors.*
 
 
 12. Now, when loading "http://88.198.242.174:8081/" in the browser, the change is visible.
+
     ![Screenshot new web view](img/08.jpeg)
+
     *Image: Updated website view after restarting Nginx, visible at "http://88.198.242.174:8081/".*
 
 13. After this process, Git was configured on my V-server:
@@ -170,4 +185,5 @@
     - And finally deposited it on GitHub.
 
     ![Screenshot github](img/git.jpeg)
+
     *Image: Screenshot from GitHub.*
