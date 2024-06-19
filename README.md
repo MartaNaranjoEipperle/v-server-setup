@@ -101,14 +101,49 @@
     ![Screenshot alternative content](img/07.jpeg)
     *Image: Content of the alternative index page in Nginx after editing.*
 
-11. Finally, the Nginx service was restarted:
+11. To redirect traffic from port 80 to 8081, the following steps were performed:
+
+    - Open the NGINX configuration file:
     ```bash
-    sudo service nginx restart
+    sudo nano /etc/nginx/nginx.conf
     ```
-    - And the status was checked again:
+
+    - Add the server redirection configuration.
+     ```nginx
+    server {
+                listen 80;
+                server_name 88.198.242.174;
+
+                location / {
+                        return 301 http://88.198.242.174:8081$request_uri;
+                }
+        }
+
+        server {
+                listen 8081;
+                server_name 88.198.242.174;
+
+                location / {
+                        root /var/www/alternatives ;
+                        index alternate-index.html;
+                }
+        }
+    ```
+
+    ![Screenshot new nginx.conf](img/ngd.jpeg)
+    *Image: Editing the NGINX configuration file to add server redirection.*
+
+    - Save the changes in nano by pressing `CTRL + O`, then `ENTER`, and exit the editor with `CTRL + X`.
+
+    - Test the NGINX configuration and restart the service:
     ```bash
-    systemctl status nginx.service
+    sudo nginx -t
+    sudo systemctl restart nginx
     ```
+    
+    ![Screenshot testergebnis](img/test.jpeg)
+    *Image: Result of testing the NGINX configuration for syntax errors.*
+
 
 12. Now, when loading "http://88.198.242.174:8081/" in the browser, the change is visible.
     ![Screenshot new web view](img/08.jpeg)
