@@ -61,6 +61,8 @@
     ssh -o PubkeyAuthentication=no mnaranjoeipperle@88.198.242.174
     ```
     - Everything appears to be functioning as desired.
+    ![Screenshot Permission denied](img/publickey.jpeg)
+    *Image: Permission denied error encountered while attempting to access a restricted file.*
 
 7. Next, Nginx was installed:
     ```bash
