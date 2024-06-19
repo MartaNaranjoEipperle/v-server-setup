@@ -111,23 +111,23 @@
     - Add the server redirection configuration.
      ```nginx
     server {
-                listen 80;
-                server_name 88.198.242.174;
+        listen 80;
+        server_name 88.198.242.174;
 
-                location / {
-                        return 301 http://88.198.242.174:8081$request_uri;
-                }
+        location / {
+           return 301 http://88.198.242.174:8081$request_uri;
         }
+    }
 
-        server {
-                listen 8081;
-                server_name 88.198.242.174;
+    server {
+        listen 8081;
+        server_name 88.198.242.174;
 
-                location / {
-                        root /var/www/alternatives ;
-                        index alternate-index.html;
-                }
-        }
+        location / {
+            root /var/www/alternatives ;
+            index alternate-index.html;
+            }
+    }
     ```
 
     ![Screenshot new nginx.conf](img/ngd.jpeg)
@@ -140,7 +140,7 @@
     sudo nginx -t
     sudo systemctl restart nginx
     ```
-    
+
     ![Screenshot testergebnis](img/test.jpeg)
     *Image: Result of testing the NGINX configuration for syntax errors.*
 
@@ -168,3 +168,6 @@
     ```
     
     - And finally deposited it on GitHub.
+
+    ![Screenshot github](img/git.jpeg)
+    *Image: Screenshot from GitHub.*
